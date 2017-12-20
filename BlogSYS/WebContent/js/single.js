@@ -1,6 +1,6 @@
 $(function(){
 	
-})
+});
 
 //博客首页转发
 function toIndex(){
