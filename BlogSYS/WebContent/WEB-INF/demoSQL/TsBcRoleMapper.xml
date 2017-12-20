@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yh.TsBcRole" >
+
+  <resultMap id="BaseResultMap" type="com.yh.eshop.model.TsBcRole" >
+    <id column="BC_ROLE_ID" property="bcRoleId" jdbcType="DECIMAL" />
+    <result column="BC_ROLE_NAME" property="bcRoleName" jdbcType="VARCHAR" />
+    <result column="CREATE_ID" property="createId" jdbcType="DECIMAL" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="BC_ROLE_DESC" property="bcRoleDesc" jdbcType="VARCHAR" />
+    <result column="BC_ROLE_STATUS" property="bcRoleStatus" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    BC_ROLE_ID, BC_ROLE_NAME, CREATE_ID, CREATE_TIME, BC_ROLE_DESC, BC_ROLE_STATUS
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Short" >
+    select 
+    <include refid="Base_Column_List" />
+    from TS_BC_ROLE
+    where BC_ROLE_ID = #{bcRoleId,jdbcType=DECIMAL}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short" >
+    delete from TS_BC_ROLE
+    where BC_ROLE_ID = #{bcRoleId,jdbcType=DECIMAL}
+  </delete>
+  
+  <insert id="insert" parameterType="com.yh.eshop.model.TsBcRole" >
+    insert into TS_BC_ROLE (BC_ROLE_ID, BC_ROLE_NAME, CREATE_ID, 
+      CREATE_TIME, BC_ROLE_DESC, BC_ROLE_STATUS
+      )
+    values (#{bcRoleId,jdbcType=DECIMAL}, #{bcRoleName,jdbcType=VARCHAR}, #{createId,jdbcType=DECIMAL}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{bcRoleDesc,jdbcType=VARCHAR}, #{bcRoleStatus,jdbcType=DECIMAL}
+      )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.yh.eshop.model.TsBcRole" >
+    insert into TS_BC_ROLE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bcRoleId != null" >
+        BC_ROLE_ID,
+      </if>
+      <if test="bcRoleName != null" >
+        BC_ROLE_NAME,
+      </if>
+      <if test="createId != null" >
+        CREATE_ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="bcRoleDesc != null" >
+        BC_ROLE_DESC,
+      </if>
+      <if test="bcRoleStatus != null" >
+        BC_ROLE_STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bcRoleId != null" >
+        #{bcRoleId,jdbcType=DECIMAL},
+      </if>
+      <if test="bcRoleName != null" >
+        #{bcRoleName,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bcRoleDesc != null" >
+        #{bcRoleDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="bcRoleStatus != null" >
+        #{bcRoleStatus,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.yh.eshop.model.TsBcRole" >
+    update TS_BC_ROLE
+    <set >
+      <if test="bcRoleName != null" >
+        BC_ROLE_NAME = #{bcRoleName,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        CREATE_ID = #{createId,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bcRoleDesc != null" >
+        BC_ROLE_DESC = #{bcRoleDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="bcRoleStatus != null" >
+        BC_ROLE_STATUS = #{bcRoleStatus,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where BC_ROLE_ID = #{bcRoleId,jdbcType=DECIMAL}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.yh.eshop.model.TsBcRole" >
+    update TS_BC_ROLE
+    set BC_ROLE_NAME = #{bcRoleName,jdbcType=VARCHAR},
+      CREATE_ID = #{createId,jdbcType=DECIMAL},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      BC_ROLE_DESC = #{bcRoleDesc,jdbcType=VARCHAR},
+      BC_ROLE_STATUS = #{bcRoleStatus,jdbcType=DECIMAL}
+    where BC_ROLE_ID = #{bcRoleId,jdbcType=DECIMAL}
+  </update>
+  
+  <resultMap type="com.yh.eshop.model.TsBcRole" extends="BaseResultMap" id="rolePermissionMap">
+  	<collection property="permissionList" ofType="com.yh.eshop.model.TsRolePermission">
+  		<id column="PERMISSIONID" property="permissionid" jdbcType="DECIMAL" />
+	    <result column="TS_ROLE_PERMISSION_ID" property="tsRolePermissionId" jdbcType="DECIMAL" />
+	    <result column="TS_ROLE_PERMISSION_NAME" property="tsRolePermissionName" jdbcType="VARCHAR" />
+	    <result column="TS_ROLE_PERMISSION_DESC" property="tsRolePermissionDesc" jdbcType="VARCHAR" />
+	    <result column="TS_ROLE_PERMISSION_STATUS" property="tsRolePermissionStatus" jdbcType="DECIMAL" />
+	    <result column="BC_ROLE_ID" property="bcRoleId" jdbcType="DECIMAL" />
+	    <result column="NODE_LEVEL" property="nodeLevel" jdbcType="DECIMAL" />
+  	</collection>
+  </resultMap>
+  
+  <!--查询角色列表 -->
+  <select id="selectRoleList" resultMap="rolePermissionMap">
+	select *
+	  from ts_bc_role tr
+	  left join bc_role_permission bcp
+	    on tr.bc_role_id = bcp.bc_role_id
+	  left join ts_role_permission tsp
+	    on tsp.permissionid = bcp.permissionid
+  </select>
+</mapper>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yh.TsBcUser" >
+
+  <resultMap id="BaseResultMap" type="com.yh.eshop.model.TsBcUser" >
+    <id column="BC_USER_ID" property="bcUserId" jdbcType="DECIMAL" />
+    <result column="BC_USERNAME" property="bcUsername" jdbcType="VARCHAR" />
+    <result column="BC_SEX" property="bcSex" jdbcType="DECIMAL" />
+    <result column="BC_PASSWORD" property="bcPassword" jdbcType="VARCHAR" />
+    <result column="BC_NICKNAME" property="bcNickname" jdbcType="VARCHAR" />
+    <result column="BC_LOGIN_TIME" property="bcLoginTime" jdbcType="TIMESTAMP" />
+    <result column="BC_STATUS" property="bcStatus" jdbcType="DECIMAL" />
+    <result column="BC_REGISTER_TIME" property="bcRegisterTime" jdbcType="TIMESTAMP" />
+    <result column="BC_PERMISSION_LEVEL" property="bcPermissionLevel" jdbcType="DECIMAL" />
+    <result column="CREATE_USER_ID" property="createUserId" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    BC_USER_ID, BC_USERNAME, BC_SEX, BC_PASSWORD, BC_NICKNAME, BC_LOGIN_TIME, BC_STATUS, 
+    BC_REGISTER_TIME, BC_PERMISSION_LEVEL, CREATE_USER_ID
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from TS_BC_USER
+    where BC_USER_ID = #{bcUserId,jdbcType=DECIMAL}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from TS_BC_USER
+    where BC_USER_ID = #{bcUserId,jdbcType=DECIMAL}
+  </delete>
+  
+  <insert id="insert" parameterType="com.yh.eshop.model.TsBcUser" >
+    insert into TS_BC_USER (BC_USER_ID, BC_USERNAME, BC_SEX, 
+      BC_PASSWORD, BC_NICKNAME, BC_LOGIN_TIME, 
+      BC_STATUS, BC_REGISTER_TIME, BC_PERMISSION_LEVEL, 
+      CREATE_USER_ID)
+    values (#{bcUserId,jdbcType=DECIMAL}, #{bcUsername,jdbcType=VARCHAR}, #{bcSex,jdbcType=DECIMAL}, 
+      #{bcPassword,jdbcType=VARCHAR}, #{bcNickname,jdbcType=VARCHAR}, #{bcLoginTime,jdbcType=TIMESTAMP}, 
+      #{bcStatus,jdbcType=DECIMAL}, #{bcRegisterTime,jdbcType=TIMESTAMP}, #{bcPermissionLevel,jdbcType=DECIMAL}, 
+      #{createUserId,jdbcType=DECIMAL})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.yh.eshop.model.TsBcUser" >
+    insert into TS_BC_USER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bcUserId != null" >
+        BC_USER_ID,
+      </if>
+      <if test="bcUsername != null" >
+        BC_USERNAME,
+      </if>
+      <if test="bcSex != null" >
+        BC_SEX,
+      </if>
+      <if test="bcPassword != null" >
+        BC_PASSWORD,
+      </if>
+      <if test="bcNickname != null" >
+        BC_NICKNAME,
+      </if>
+      <if test="bcLoginTime != null" >
+        BC_LOGIN_TIME,
+      </if>
+      <if test="bcStatus != null" >
+        BC_STATUS,
+      </if>
+      <if test="bcRegisterTime != null" >
+        BC_REGISTER_TIME,
+      </if>
+      <if test="bcPermissionLevel != null" >
+        BC_PERMISSION_LEVEL,
+      </if>
+      <if test="createUserId != null" >
+        CREATE_USER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bcUserId != null" >
+        #{bcUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="bcUsername != null" >
+        #{bcUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="bcSex != null" >
+        #{bcSex,jdbcType=DECIMAL},
+      </if>
+      <if test="bcPassword != null" >
+        #{bcPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="bcNickname != null" >
+        #{bcNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="bcLoginTime != null" >
+        #{bcLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bcStatus != null" >
+        #{bcStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="bcRegisterTime != null" >
+        #{bcRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bcPermissionLevel != null" >
+        #{bcPermissionLevel,jdbcType=DECIMAL},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.yh.eshop.model.TsBcUser" >
+    update TS_BC_USER
+    <set >
+      <if test="bcUsername != null" >
+        BC_USERNAME = #{bcUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="bcSex != null" >
+        BC_SEX = #{bcSex,jdbcType=DECIMAL},
+      </if>
+      <if test="bcPassword != null" >
+        BC_PASSWORD = #{bcPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="bcNickname != null" >
+        BC_NICKNAME = #{bcNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="bcLoginTime != null" >
+        BC_LOGIN_TIME = #{bcLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bcStatus != null" >
+        BC_STATUS = #{bcStatus,jdbcType=DECIMAL},
+      </if>
+      <if test="bcRegisterTime != null" >
+        BC_REGISTER_TIME = #{bcRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bcPermissionLevel != null" >
+        BC_PERMISSION_LEVEL = #{bcPermissionLevel,jdbcType=DECIMAL},
+      </if>
+      <if test="createUserId != null" >
+        CREATE_USER_ID = #{createUserId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where BC_USER_ID = #{bcUserId,jdbcType=DECIMAL}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.yh.eshop.model.TsBcUser" >
+    update TS_BC_USER
+    set BC_USERNAME = #{bcUsername,jdbcType=VARCHAR},
+      BC_SEX = #{bcSex,jdbcType=DECIMAL},
+      BC_PASSWORD = #{bcPassword,jdbcType=VARCHAR},
+      BC_NICKNAME = #{bcNickname,jdbcType=VARCHAR},
+      BC_LOGIN_TIME = #{bcLoginTime,jdbcType=TIMESTAMP},
+      BC_STATUS = #{bcStatus,jdbcType=DECIMAL},
+      BC_REGISTER_TIME = #{bcRegisterTime,jdbcType=TIMESTAMP},
+      BC_PERMISSION_LEVEL = #{bcPermissionLevel,jdbcType=DECIMAL},
+      CREATE_USER_ID = #{createUserId,jdbcType=DECIMAL}
+    where BC_USER_ID = #{bcUserId,jdbcType=DECIMAL}
+  </update>
+  
+  <!--用户名密码校验 -->
+  <select id="selectUserByPass" parameterType="map" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List"></include>
+  	from TS_BC_USER where BC_USERNAME = #{bcUsername} and BC_PASSWORD = #{bcPassword}
+  </select>
+  
+  <!--删除用户前的预处理校验 -->
+  <select id="deleteBeforeValid" parameterType="Long" resultMap="BaseResultMap">
+  	select tu.*
+  from ts_bc_role tr
+  join bc_user_role br
+    on br.bc_role_id = tr.bc_role_id
+  join ts_bc_user tu
+    on tu.bc_user_id = br.bc_user_id
+where tr.bc_role_id = #{bcRoleId}
+  </select>
+</mapper>

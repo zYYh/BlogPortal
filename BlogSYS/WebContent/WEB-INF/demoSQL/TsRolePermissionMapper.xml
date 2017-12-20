@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yh.TsRolePermission" >
+
+  <resultMap id="BaseResultMap" type="com.yh.eshop.model.TsRolePermission" >
+    <id column="PERMISSIONID" property="permissionid" jdbcType="DECIMAL" />
+    <result column="TS_ROLE_PERMISSION_ID" property="tsRolePermissionId" jdbcType="DECIMAL" />
+    <result column="TS_ROLE_PERMISSION_NAME" property="tsRolePermissionName" jdbcType="VARCHAR" />
+    <result column="TS_ROLE_PERMISSION_DESC" property="tsRolePermissionDesc" jdbcType="VARCHAR" />
+    <result column="TS_ROLE_PERMISSION_STATUS" property="tsRolePermissionStatus" jdbcType="DECIMAL" />
+    <result column="BC_ROLE_ID" property="bcRoleId" jdbcType="DECIMAL" />
+    <result column="NODE_LEVEL" property="nodeLevel" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    PERMISSIONID,TS_ROLE_PERMISSION_ID, TS_ROLE_PERMISSION_NAME, TS_ROLE_PERMISSION_DESC, 
+    TS_ROLE_PERMISSION_STATUS,BC_ROLE_ID,NODE_LEVEL
+  </sql>
+  
+  <!--查询单条权限 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from TS_ROLE_PERMISSION
+    where TS_ROLE_PERMISSION_ID = #{tsRolePermissionId,jdbcType=DECIMAL}
+  </select>
+  
+  <!--删除 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from TS_ROLE_PERMISSION
+    where PERMISSIONID = #{permissionid,jdbcType=DECIMAL}
+  </delete>
+  
+  <!--批量删除 -->
+  <delete id="deleteByIdBatch" parameterType="java.lang.Long" >
+    delete from TS_ROLE_PERMISSION
+    where TS_ROLE_PERMISSION_ID = #{tsRolePermissionId,jdbcType=DECIMAL}
+  </delete>
+  
+  <insert id="insert" parameterType="com.yh.eshop.model.TsRolePermission" >
+    insert into TS_ROLE_PERMISSION (PERMISSIONID, ROLEID, TS_ROLE_PERMISSION_ID, 
+      TS_ROLE_PERMISSION_NAME, TS_ROLE_PERMISSION_DESC, 
+      TS_ROLE_PERMISSION_STATUS,BC_ROLE_ID)
+    values (#{permissionid,jdbcType=DECIMAL}, #{roleid,jdbcType=DECIMAL}, #{tsRolePermissionId,jdbcType=DECIMAL}, 
+      #{tsRolePermissionName,jdbcType=VARCHAR}, #{tsRolePermissionDesc,jdbcType=VARCHAR}, 
+      #{tsRolePermissionStatus,jdbcType=DECIMAL},#{bcRoleId,jdbcType=DECIMAL})
+  </insert>
+  
+  <!-- <insert id="insertSelective" parameterType="com.yh.eshop.model.TsRolePermission" >
+    insert into TS_ROLE_PERMISSION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="permissionid != null" >
+        PERMISSIONID,
+      </if>
+      <if test="roleid != null" >
+        ROLEID,
+      </if>
+      <if test="tsRolePermissionId != null" >
+        TS_ROLE_PERMISSION_ID,
+      </if>
+      <if test="tsRolePermissionName != null" >
+        TS_ROLE_PERMISSION_NAME,
+      </if>
+      <if test="tsRolePermissionDesc != null" >
+        TS_ROLE_PERMISSION_DESC,
+      </if>
+      <if test="tsRolePermissionStatus != null" >
+        TS_ROLE_PERMISSION_STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="permissionid != null" >
+        #{permissionid,jdbcType=DECIMAL},
+      </if>
+      <if test="roleid != null" >
+        #{roleid,jdbcType=DECIMAL},
+      </if>
+      <if test="tsRolePermissionId != null" >
+        #{tsRolePermissionId,jdbcType=DECIMAL},
+      </if>
+      <if test="tsRolePermissionName != null" >
+        #{tsRolePermissionName,jdbcType=VARCHAR},
+      </if>
+      <if test="tsRolePermissionDesc != null" >
+        #{tsRolePermissionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="tsRolePermissionStatus != null" >
+        #{tsRolePermissionStatus,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert> -->
+  
+  <!--注意该SQL已被更改，不可重用 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.yh.eshop.model.TsRolePermission" >
+    update TS_ROLE_PERMISSION
+    <set >
+      <if test="bcRoleId != null" >
+        BC_ROLE_ID = #{bcRoleId,jdbcType=DECIMAL},
+      </if>
+      <if test="tsRolePermissionName != null" >
+        TS_ROLE_PERMISSION_NAME = #{tsRolePermissionName,jdbcType=VARCHAR},
+      </if>
+      <if test="tsRolePermissionDesc != null" >
+        TS_ROLE_PERMISSION_DESC = #{tsRolePermissionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="tsRolePermissionStatus != null" >
+        TS_ROLE_PERMISSION_STATUS = #{tsRolePermissionStatus,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where TS_ROLE_PERMISSION_ID = #{tsRolePermissionId,jdbcType=DECIMAL}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.yh.eshop.model.TsRolePermission" >
+    update TS_ROLE_PERMISSION
+    set ROLEID = #{roleid,jdbcType=DECIMAL},
+      TS_ROLE_PERMISSION_ID = #{tsRolePermissionId,jdbcType=DECIMAL},
+      TS_ROLE_PERMISSION_NAME = #{tsRolePermissionName,jdbcType=VARCHAR},
+      TS_ROLE_PERMISSION_DESC = #{tsRolePermissionDesc,jdbcType=VARCHAR},
+      TS_ROLE_PERMISSION_STATUS = #{tsRolePermissionStatus,jdbcType=DECIMAL}
+    where PERMISSIONID = #{permissionid,jdbcType=DECIMAL}
+  </update>
+  
+  <!--自定义结果map -->
+  <resultMap type="com.yh.eshop.model.TsRolePermission" id="permAndChildMap" extends="BaseResultMap">
+  	<collection property="childList" ofType="com.yh.eshop.model.TsRolePermissionChild">
+  		<id column="PERMISSION_CHILD_ID" property="permissionChildId" jdbcType="DECIMAL" />
+	    <result column="TS_ROLE_PERMISSION_ID" property="tsRolePermissionId" jdbcType="DECIMAL" />
+	    <result column="PERM_CHILD_NAME" property="permChildName" jdbcType="VARCHAR" />
+	    <result column="PERM_CHILD_DESC" property="permChildDesc" jdbcType="VARCHAR" />
+	    <result column="PER_CHILD_STATUS" property="perChildStatus" jdbcType="DECIMAL" />
+  	</collection>
+  </resultMap>
+  <!--查询权限列表 -->
+  <select id="selectPermissionList" resultMap="permAndChildMap">
+	select tp.*,tpc.*
+	  from ts_role_permission tp
+	  join ts_role_permission_child tpc
+	    on tp.ts_role_permission_id = tpc.ts_role_permission_id
+  </select>
+</mapper>

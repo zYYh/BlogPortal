@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yh.BcRolePermissionKey" >
+
+  <resultMap id="BaseResultMap" type="com.yh.eshop.model.BcRolePermissionKey" >
+    <id column="BC_ROLE_ID" property="bcRoleId" jdbcType="DECIMAL" />
+    <id column="PERMISSIONID" property="permissionid" jdbcType="DECIMAL" />
+    <id column="PERMISSION_CHILD_ID" property="permissionChildId" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!--删除关联关系 -->
+  <delete id="deleteByPrimaryKey" parameterType="Long" >
+    delete from BC_ROLE_PERMISSION
+    where BC_ROLE_ID = #{bcRoleId,jdbcType=DECIMAL}
+  </delete>
+  
+  <!--删除角色单条权限关联关系 -->
+  <delete id="deleteByPrimaryKeyAndRoleId" parameterType="map" >
+    delete from BC_ROLE_PERMISSION
+    where BC_ROLE_ID = #{bcRoleId,jdbcType=DECIMAL}
+    and PERMISSIONID = #{permissionid,jdbcType=DECIMAL}
+  </delete>
+  
+  <!--更新角色权限(insert) -->
+  <insert id="insert" parameterType="com.yh.eshop.model.BcRolePermissionKey" >
+    insert into BC_ROLE_PERMISSION (BC_ROLE_ID, PERMISSIONID,PERMISSION_CHILD_ID)
+    values (#{bcRoleId,jdbcType=DECIMAL}, #{permissionid,jdbcType=DECIMAL},#{permissionChildId,jdbcType=DECIMAL})
+  </insert>
+  
+  <!--更新角色权限(update) -->
+  <update id="updateByPermId" parameterType="com.yh.eshop.model.BcRolePermissionKey">
+  	update BC_ROLE_PERMISSION
+    <set >
+      <if test="bcRoleId != null" >
+        BC_ROLE_ID = #{bcRoleId,jdbcType=DECIMAL},
+      </if>
+      <if test="permissionChildId != null" >
+        PERMISSION_CHILD_ID = #{permissionChildId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PERMISSIONID = #{permissionid,jdbcType=DECIMAL}
+    and BC_ROLE_ID = #{bcRoleId,jdbcType=DECIMAL}
+  </update>
+  
+  
+  <insert id="insertSelective" parameterType="com.yh.eshop.model.BcRolePermissionKey" >
+    insert into BC_ROLE_PERMISSION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bcRoleId != null" >
+        BC_ROLE_ID,
+      </if>
+      <if test="permissionid != null" >
+        PERMISSIONID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bcRoleId != null" >
+        #{bcRoleId,jdbcType=DECIMAL},
+      </if>
+      <if test="permissionid != null" >
+        #{permissionid,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  
+  <!--查询单条权限关联 -->
+  <select id="selectSinglePermRelation" parameterType="map" resultMap="BaseResultMap">
+  	select *
+  	from bc_role_permission
+  	where PERMISSIONID = #{permissionid,jdbcType=DECIMAL}
+  	and BC_ROLE_ID = #{bcRoleId,jdbcType=DECIMAL}
+  </select>
+  
+</mapper>

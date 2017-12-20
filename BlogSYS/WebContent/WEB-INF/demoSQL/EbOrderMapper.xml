@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yh.EbOrder" >
+
+  <resultMap id="BaseResultMap" type="com.yh.eshop.model.EbOrder" >
+    <id column="ORDER_ID" property="orderId" jdbcType="DECIMAL" />
+    <result column="PTL_USER_ID" property="ptlUserId" jdbcType="DECIMAL" />
+    <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+    <result column="ORDER_NUM" property="orderNum" jdbcType="VARCHAR" />
+    <result column="PAYMENT" property="payment" jdbcType="DECIMAL" />
+    <result column="PAY_PLATFROM" property="payPlatfrom" jdbcType="DECIMAL" />
+    <result column="DELIVERY" property="delivery" jdbcType="DECIMAL" />
+    <result column="IS_CONFIRM" property="isConfirm" jdbcType="DECIMAL" />
+    <result column="ORDER_SUM" property="orderSum" jdbcType="DECIMAL" />
+    <result column="SHIP_FEE" property="shipFee" jdbcType="DECIMAL" />
+    <result column="IS_PAID" property="isPaid" jdbcType="DECIMAL" />
+    <result column="ORDER_STATE" property="orderState" jdbcType="DECIMAL" />
+    <result column="PAYMENT_CASH" property="paymentCash" jdbcType="DECIMAL" />
+    <result column="DISTRI" property="distri" jdbcType="DECIMAL" />
+    <result column="DELIVERY_MTHOD" property="deliveryMthod" jdbcType="DECIMAL" />
+    <result column="PAYMENT_NO" property="paymentNo" jdbcType="VARCHAR" />
+    <result column="ORDER_TIME" property="orderTime" jdbcType="TIMESTAMP" />
+    <result column="PAY_TIME" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="DEPOSIT_TIME" property="depositTime" jdbcType="TIMESTAMP" />
+    <result column="SUCCESS_TIME" property="successTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="SRV_TYPE" property="srvType" jdbcType="DECIMAL" />
+    <result column="SELF_COLLECT_SITE" property="selfCollectSite" jdbcType="VARCHAR" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="DECIMAL" />
+    <result column="IS_DISPLAY" property="isDisplay" jdbcType="DECIMAL" />
+    <result column="NOTE" property="note" jdbcType="VARCHAR" />
+    <result column="SHIP_NAME" property="shipName" jdbcType="VARCHAR" />
+    <result column="PROVINCE" property="province" jdbcType="VARCHAR" />
+    <result column="CITY" property="city" jdbcType="VARCHAR" />
+    <result column="DISTRICT" property="district" jdbcType="VARCHAR" />
+    <result column="ZIP_CODE" property="zipCode" jdbcType="VARCHAR" />
+    <result column="ADDR" property="addr" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="PAYABLE" property="payable" jdbcType="DECIMAL" />
+    <result column="COMPANY" property="company" jdbcType="VARCHAR" />
+    <result column="CONTENTS" property="contents" jdbcType="DECIMAL" />
+    <result column="IS_CALL" property="isCall" jdbcType="DECIMAL" />
+    <result column="DELIVERY_NO" property="deliveryNo" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ORDER_ID, PTL_USER_ID, USERNAME, ORDER_NUM, PAYMENT, PAY_PLATFROM, DELIVERY, IS_CONFIRM, 
+    ORDER_SUM, SHIP_FEE, IS_PAID, ORDER_STATE, PAYMENT_CASH, DISTRI, DELIVERY_MTHOD, 
+    PAYMENT_NO, ORDER_TIME, PAY_TIME, DEPOSIT_TIME, SUCCESS_TIME, UPDATE_TIME, SRV_TYPE, 
+    SELF_COLLECT_SITE, IS_DELETED, IS_DISPLAY, NOTE, SHIP_NAME, PROVINCE, CITY, DISTRICT, 
+    ZIP_CODE, ADDR, PHONE, PAYABLE, COMPANY, CONTENTS, IS_CALL, DELIVERY_NO
+  </sql>
+  
+  <!--查询 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from EB_ORDER
+    where ORDER_ID = #{orderId,jdbcType=DECIMAL}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from EB_ORDER
+    where ORDER_ID = #{orderId,jdbcType=DECIMAL}
+  </delete>
+  
+  <!--订单入库 -->
+  <insert id="insert" parameterType="com.yh.eshop.model.EbOrder" >
+	  <selectKey order="BEFORE" keyProperty="orderId" resultType="Long">
+	  		select seqorderid.nextval from dual
+	  </selectKey>
+    insert into EB_ORDER (ORDER_ID, PTL_USER_ID, USERNAME, 
+      ORDER_NUM, PAYMENT, PAY_PLATFROM, 
+      DELIVERY, IS_CONFIRM, ORDER_SUM, 
+      SHIP_FEE, IS_PAID, ORDER_STATE, 
+      PAYMENT_CASH, DISTRI, DELIVERY_MTHOD, 
+      PAYMENT_NO, ORDER_TIME, PAY_TIME, 
+      DEPOSIT_TIME, SUCCESS_TIME, UPDATE_TIME, 
+      SRV_TYPE, SELF_COLLECT_SITE, IS_DELETED, 
+      IS_DISPLAY, NOTE, SHIP_NAME, 
+      PROVINCE, CITY, DISTRICT, 
+      ZIP_CODE, ADDR, PHONE, 
+      PAYABLE, COMPANY, CONTENTS, 
+      IS_CALL, DELIVERY_NO)
+    values (#{orderId,jdbcType=DECIMAL}, #{ptlUserId,jdbcType=DECIMAL}, #{username,jdbcType=VARCHAR}, 
+      #{orderNum,jdbcType=VARCHAR}, #{payment,jdbcType=DECIMAL}, #{payPlatfrom,jdbcType=DECIMAL}, 
+      #{delivery,jdbcType=DECIMAL}, #{isConfirm,jdbcType=DECIMAL}, #{orderSum,jdbcType=DECIMAL}, 
+      #{shipFee,jdbcType=DECIMAL},0, #{orderState,jdbcType=DECIMAL}, 
+      #{paymentCash,jdbcType=DECIMAL}, #{distri,jdbcType=DECIMAL}, #{deliveryMthod,jdbcType=DECIMAL}, 
+      #{paymentNo,jdbcType=VARCHAR}, sysdate, #{payTime,jdbcType=TIMESTAMP}, 
+      #{depositTime,jdbcType=TIMESTAMP}, #{successTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{srvType,jdbcType=DECIMAL}, #{selfCollectSite,jdbcType=VARCHAR}, #{isDeleted,jdbcType=DECIMAL}, 
+      #{isDisplay,jdbcType=DECIMAL}, #{note,jdbcType=VARCHAR}, #{shipName,jdbcType=VARCHAR}, 
+      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, 
+      #{zipCode,jdbcType=VARCHAR}, #{addr,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{payable,jdbcType=DECIMAL}, #{company,jdbcType=VARCHAR}, #{contents,jdbcType=DECIMAL}, 
+      0, #{deliveryNo,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.yh.eshop.model.EbOrder" >
+    insert into EB_ORDER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        ORDER_ID,
+      </if>
+      <if test="ptlUserId != null" >
+        PTL_USER_ID,
+      </if>
+      <if test="username != null" >
+        USERNAME,
+      </if>
+      <if test="orderNum != null" >
+        ORDER_NUM,
+      </if>
+      <if test="payment != null" >
+        PAYMENT,
+      </if>
+      <if test="payPlatfrom != null" >
+        PAY_PLATFROM,
+      </if>
+      <if test="delivery != null" >
+        DELIVERY,
+      </if>
+      <if test="isConfirm != null" >
+        IS_CONFIRM,
+      </if>
+      <if test="orderSum != null" >
+        ORDER_SUM,
+      </if>
+      <if test="shipFee != null" >
+        SHIP_FEE,
+      </if>
+      <if test="isPaid != null" >
+        IS_PAID,
+      </if>
+      <if test="orderState != null" >
+        ORDER_STATE,
+      </if>
+      <if test="paymentCash != null" >
+        PAYMENT_CASH,
+      </if>
+      <if test="distri != null" >
+        DISTRI,
+      </if>
+      <if test="deliveryMthod != null" >
+        DELIVERY_MTHOD,
+      </if>
+      <if test="paymentNo != null" >
+        PAYMENT_NO,
+      </if>
+      <if test="orderTime != null" >
+        ORDER_TIME,
+      </if>
+      <if test="payTime != null" >
+        PAY_TIME,
+      </if>
+      <if test="depositTime != null" >
+        DEPOSIT_TIME,
+      </if>
+      <if test="successTime != null" >
+        SUCCESS_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="srvType != null" >
+        SRV_TYPE,
+      </if>
+      <if test="selfCollectSite != null" >
+        SELF_COLLECT_SITE,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="isDisplay != null" >
+        IS_DISPLAY,
+      </if>
+      <if test="note != null" >
+        NOTE,
+      </if>
+      <if test="shipName != null" >
+        SHIP_NAME,
+      </if>
+      <if test="province != null" >
+        PROVINCE,
+      </if>
+      <if test="city != null" >
+        CITY,
+      </if>
+      <if test="district != null" >
+        DISTRICT,
+      </if>
+      <if test="zipCode != null" >
+        ZIP_CODE,
+      </if>
+      <if test="addr != null" >
+        ADDR,
+      </if>
+      <if test="phone != null" >
+        PHONE,
+      </if>
+      <if test="payable != null" >
+        PAYABLE,
+      </if>
+      <if test="company != null" >
+        COMPANY,
+      </if>
+      <if test="contents != null" >
+        CONTENTS,
+      </if>
+      <if test="isCall != null" >
+        IS_CALL,
+      </if>
+      <if test="deliveryNo != null" >
+        DELIVERY_NO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=DECIMAL},
+      </if>
+      <if test="ptlUserId != null" >
+        #{ptlUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="payment != null" >
+        #{payment,jdbcType=DECIMAL},
+      </if>
+      <if test="payPlatfrom != null" >
+        #{payPlatfrom,jdbcType=DECIMAL},
+      </if>
+      <if test="delivery != null" >
+        #{delivery,jdbcType=DECIMAL},
+      </if>
+      <if test="isConfirm != null" >
+        #{isConfirm,jdbcType=DECIMAL},
+      </if>
+      <if test="orderSum != null" >
+        #{orderSum,jdbcType=DECIMAL},
+      </if>
+      <if test="shipFee != null" >
+        #{shipFee,jdbcType=DECIMAL},
+      </if>
+      <if test="isPaid != null" >
+        #{isPaid,jdbcType=DECIMAL},
+      </if>
+      <if test="orderState != null" >
+        #{orderState,jdbcType=DECIMAL},
+      </if>
+      <if test="paymentCash != null" >
+        #{paymentCash,jdbcType=DECIMAL},
+      </if>
+      <if test="distri != null" >
+        #{distri,jdbcType=DECIMAL},
+      </if>
+      <if test="deliveryMthod != null" >
+        #{deliveryMthod,jdbcType=DECIMAL},
+      </if>
+      <if test="paymentNo != null" >
+        #{paymentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null" >
+        #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="depositTime != null" >
+        #{depositTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="successTime != null" >
+        #{successTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="srvType != null" >
+        #{srvType,jdbcType=DECIMAL},
+      </if>
+      <if test="selfCollectSite != null" >
+        #{selfCollectSite,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=DECIMAL},
+      </if>
+      <if test="isDisplay != null" >
+        #{isDisplay,jdbcType=DECIMAL},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="shipName != null" >
+        #{shipName,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="zipCode != null" >
+        #{zipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null" >
+        #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="payable != null" >
+        #{payable,jdbcType=DECIMAL},
+      </if>
+      <if test="company != null" >
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="contents != null" >
+        #{contents,jdbcType=DECIMAL},
+      </if>
+      <if test="isCall != null" >
+        #{isCall,jdbcType=DECIMAL},
+      </if>
+      <if test="deliveryNo != null" >
+        #{deliveryNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.yh.eshop.model.EbOrder" >
+    update EB_ORDER
+    <set >
+      <if test="ptlUserId != null" >
+        PTL_USER_ID = #{ptlUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="username != null" >
+        USERNAME = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        ORDER_NUM = #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="payment != null" >
+        PAYMENT = #{payment,jdbcType=DECIMAL},
+      </if>
+      <if test="payPlatfrom != null" >
+        PAY_PLATFROM = #{payPlatfrom,jdbcType=DECIMAL},
+      </if>
+      <if test="delivery != null" >
+        DELIVERY = #{delivery,jdbcType=DECIMAL},
+      </if>
+      <if test="isConfirm != null" >
+        IS_CONFIRM = #{isConfirm,jdbcType=DECIMAL},
+      </if>
+      <if test="orderSum != null" >
+        ORDER_SUM = #{orderSum,jdbcType=DECIMAL},
+      </if>
+      <if test="shipFee != null" >
+        SHIP_FEE = #{shipFee,jdbcType=DECIMAL},
+      </if>
+      <if test="isPaid != null" >
+        IS_PAID = #{isPaid,jdbcType=DECIMAL},
+      </if>
+      <if test="orderState != null" >
+        ORDER_STATE = #{orderState,jdbcType=DECIMAL},
+      </if>
+      <if test="paymentCash != null" >
+        PAYMENT_CASH = #{paymentCash,jdbcType=DECIMAL},
+      </if>
+      <if test="distri != null" >
+        DISTRI = #{distri,jdbcType=DECIMAL},
+      </if>
+      <if test="deliveryMthod != null" >
+        DELIVERY_MTHOD = #{deliveryMthod,jdbcType=DECIMAL},
+      </if>
+      <if test="paymentNo != null" >
+        PAYMENT_NO = #{paymentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null" >
+        ORDER_TIME = #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payTime != null" >
+        PAY_TIME = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="depositTime != null" >
+        DEPOSIT_TIME = #{depositTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="successTime != null" >
+        SUCCESS_TIME = #{successTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="srvType != null" >
+        SRV_TYPE = #{srvType,jdbcType=DECIMAL},
+      </if>
+      <if test="selfCollectSite != null" >
+        SELF_COLLECT_SITE = #{selfCollectSite,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=DECIMAL},
+      </if>
+      <if test="isDisplay != null" >
+        IS_DISPLAY = #{isDisplay,jdbcType=DECIMAL},
+      </if>
+      <if test="note != null" >
+        NOTE = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="shipName != null" >
+        SHIP_NAME = #{shipName,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        PROVINCE = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        CITY = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        DISTRICT = #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="zipCode != null" >
+        ZIP_CODE = #{zipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null" >
+        ADDR = #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="payable != null" >
+        PAYABLE = #{payable,jdbcType=DECIMAL},
+      </if>
+      <if test="company != null" >
+        COMPANY = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="contents != null" >
+        CONTENTS = #{contents,jdbcType=DECIMAL},
+      </if>
+      <if test="isCall != null" >
+        IS_CALL = #{isCall,jdbcType=DECIMAL},
+      </if>
+      <if test="deliveryNo != null" >
+        DELIVERY_NO = #{deliveryNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ORDER_ID = #{orderId,jdbcType=DECIMAL}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.yh.eshop.model.EbOrder" >
+    -->
+    update EB_ORDER
+    set PTL_USER_ID = #{ptlUserId,jdbcType=DECIMAL},
+      USERNAME = #{username,jdbcType=VARCHAR},
+      ORDER_NUM = #{orderNum,jdbcType=VARCHAR},
+      PAYMENT = #{payment,jdbcType=DECIMAL},
+      PAY_PLATFROM = #{payPlatfrom,jdbcType=DECIMAL},
+      DELIVERY = #{delivery,jdbcType=DECIMAL},
+      IS_CONFIRM = #{isConfirm,jdbcType=DECIMAL},
+      ORDER_SUM = #{orderSum,jdbcType=DECIMAL},
+      SHIP_FEE = #{shipFee,jdbcType=DECIMAL},
+      IS_PAID = #{isPaid,jdbcType=DECIMAL},
+      ORDER_STATE = #{orderState,jdbcType=DECIMAL},
+      PAYMENT_CASH = #{paymentCash,jdbcType=DECIMAL},
+      DISTRI = #{distri,jdbcType=DECIMAL},
+      DELIVERY_MTHOD = #{deliveryMthod,jdbcType=DECIMAL},
+      PAYMENT_NO = #{paymentNo,jdbcType=VARCHAR},
+      ORDER_TIME = #{orderTime,jdbcType=TIMESTAMP},
+      PAY_TIME = #{payTime,jdbcType=TIMESTAMP},
+      DEPOSIT_TIME = #{depositTime,jdbcType=TIMESTAMP},
+      SUCCESS_TIME = #{successTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      SRV_TYPE = #{srvType,jdbcType=DECIMAL},
+      SELF_COLLECT_SITE = #{selfCollectSite,jdbcType=VARCHAR},
+      IS_DELETED = #{isDeleted,jdbcType=DECIMAL},
+      IS_DISPLAY = #{isDisplay,jdbcType=DECIMAL},
+      NOTE = #{note,jdbcType=VARCHAR},
+      SHIP_NAME = #{shipName,jdbcType=VARCHAR},
+      PROVINCE = #{province,jdbcType=VARCHAR},
+      CITY = #{city,jdbcType=VARCHAR},
+      DISTRICT = #{district,jdbcType=VARCHAR},
+      ZIP_CODE = #{zipCode,jdbcType=VARCHAR},
+      ADDR = #{addr,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      PAYABLE = #{payable,jdbcType=DECIMAL},
+      COMPANY = #{company,jdbcType=VARCHAR},
+      CONTENTS = #{contents,jdbcType=DECIMAL},
+      IS_CALL = #{isCall,jdbcType=DECIMAL},
+      DELIVERY_NO = #{deliveryNo,jdbcType=VARCHAR}
+    where ORDER_ID = #{orderId,jdbcType=DECIMAL}
+  </update>
+  
+  <!--自定义结果查询Map -->
+  <resultMap type="com.yh.eshop.model.EbOrder" id="OrderAndDetailMap" extends="BaseResultMap">
+  	<!--详情集合 -->
+  	<collection property="detailList" ofType="com.yh.eshop.model.EbOrderDetail">
+  		<id column="ORDER_DETAIL_ID" property="orderDetailId" jdbcType="DECIMAL" />
+	    <result column="ORDER_ID" property="orderId" jdbcType="DECIMAL" />
+	    <result column="ITEM_ID" property="itemId" jdbcType="DECIMAL" />
+	    <result column="ITEM_NAME" property="itemName" jdbcType="VARCHAR" />
+	    <result column="ITEM_NO" property="itemNo" jdbcType="VARCHAR" />
+	    <result column="SKU_ID" property="skuId" jdbcType="DECIMAL" />
+	    <result column="SKU" property="sku" jdbcType="VARCHAR" />
+	    <result column="SKU_IMG" property="skuImg" jdbcType="VARCHAR" />
+	    <result column="SKU_NAME" property="skuName" jdbcType="VARCHAR" />
+	    <result column="SKU_SPEC" property="skuSpec" jdbcType="VARCHAR" />
+	    <result column="MARKET_PRICE" property="marketPrice" jdbcType="DECIMAL" />
+	    <result column="SKU_DISCOUNT" property="skuDiscount" jdbcType="DECIMAL" />
+	    <result column="SKU_PRICE" property="skuPrice" jdbcType="DECIMAL" />
+	    <result column="COUNT" property="count" jdbcType="DECIMAL" />
+	    <result column="SERIESCODE" property="seriescode" jdbcType="VARCHAR" />
+  	</collection>
+  </resultMap>
+  
+  <!--查看订单详情 -->
+  <select id="selectOrderDetailById" parameterType="Long" resultMap="OrderAndDetailMap">
+  	select *
+  from eb_order eo
+  join eb_order_detail eod
+    on eo.order_id = eod.order_id
+ where eo.order_id = #{orderId}
+  </select>
+</mapper>

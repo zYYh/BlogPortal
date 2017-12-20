@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yh.TsRolePermissionChild" >
+
+  <resultMap id="BaseResultMap" type="com.yh.eshop.model.TsRolePermissionChild" >
+    <id column="PERMISSION_CHILD_ID" property="permissionChildId" jdbcType="DECIMAL" />
+    <result column="TS_ROLE_PERMISSION_ID" property="tsRolePermissionId" jdbcType="DECIMAL" />
+    <result column="PERM_CHILD_NAME" property="permChildName" jdbcType="VARCHAR" />
+    <result column="PERM_CHILD_DESC" property="permChildDesc" jdbcType="VARCHAR" />
+    <result column="PER_CHILD_STATUS" property="perChildStatus" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    PERMISSION_CHILD_ID, TS_ROLE_PERMISSION_ID, PERM_CHILD_NAME, PERM_CHILD_DESC, PER_CHILD_STATUS
+  </sql>
+  
+  <!--查找子权限 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from TS_ROLE_PERMISSION_CHILD
+    where PERMISSION_CHILD_ID = #{permissionChildId,jdbcType=DECIMAL}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from TS_ROLE_PERMISSION_CHILD
+    where PERMISSION_CHILD_ID = #{permissionChildId,jdbcType=DECIMAL}
+  </delete>
+  
+  <insert id="insert" parameterType="com.yh.eshop.model.TsRolePermissionChild" >
+    insert into TS_ROLE_PERMISSION_CHILD (PERMISSION_CHILD_ID, TS_ROLE_PERMISSION_ID, 
+      PERM_CHILD_NAME, PERM_CHILD_DESC, PER_CHILD_STATUS
+      )
+    values (#{permissionChildId,jdbcType=DECIMAL}, #{tsRolePermissionId,jdbcType=DECIMAL}, 
+      #{permChildName,jdbcType=VARCHAR}, #{permChildDesc,jdbcType=VARCHAR}, #{perChildStatus,jdbcType=DECIMAL}
+      )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.yh.eshop.model.TsRolePermissionChild" >
+    insert into TS_ROLE_PERMISSION_CHILD
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="permissionChildId != null" >
+        PERMISSION_CHILD_ID,
+      </if>
+      <if test="tsRolePermissionId != null" >
+        TS_ROLE_PERMISSION_ID,
+      </if>
+      <if test="permChildName != null" >
+        PERM_CHILD_NAME,
+      </if>
+      <if test="permChildDesc != null" >
+        PERM_CHILD_DESC,
+      </if>
+      <if test="perChildStatus != null" >
+        PER_CHILD_STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="permissionChildId != null" >
+        #{permissionChildId,jdbcType=DECIMAL},
+      </if>
+      <if test="tsRolePermissionId != null" >
+        #{tsRolePermissionId,jdbcType=DECIMAL},
+      </if>
+      <if test="permChildName != null" >
+        #{permChildName,jdbcType=VARCHAR},
+      </if>
+      <if test="permChildDesc != null" >
+        #{permChildDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="perChildStatus != null" >
+        #{perChildStatus,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.yh.eshop.model.TsRolePermissionChild" >
+    update TS_ROLE_PERMISSION_CHILD
+    <set >
+      <if test="tsRolePermissionId != null" >
+        TS_ROLE_PERMISSION_ID = #{tsRolePermissionId,jdbcType=DECIMAL},
+      </if>
+      <if test="permChildName != null" >
+        PERM_CHILD_NAME = #{permChildName,jdbcType=VARCHAR},
+      </if>
+      <if test="permChildDesc != null" >
+        PERM_CHILD_DESC = #{permChildDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="perChildStatus != null" >
+        PER_CHILD_STATUS = #{perChildStatus,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where PERMISSION_CHILD_ID = #{permissionChildId,jdbcType=DECIMAL}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.yh.eshop.model.TsRolePermissionChild" >
+    update TS_ROLE_PERMISSION_CHILD
+    set TS_ROLE_PERMISSION_ID = #{tsRolePermissionId,jdbcType=DECIMAL},
+      PERM_CHILD_NAME = #{permChildName,jdbcType=VARCHAR},
+      PERM_CHILD_DESC = #{permChildDesc,jdbcType=VARCHAR},
+      PER_CHILD_STATUS = #{perChildStatus,jdbcType=DECIMAL}
+    where PERMISSION_CHILD_ID = #{permissionChildId,jdbcType=DECIMAL}
+  </update>
+</mapper>

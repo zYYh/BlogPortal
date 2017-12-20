@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yh.EbOrderDetail" >
+
+  <resultMap id="BaseResultMap" type="com.yh.eshop.model.EbOrderDetail" >
+    <id column="ORDER_DETAIL_ID" property="orderDetailId" jdbcType="DECIMAL" />
+    <result column="ORDER_ID" property="orderId" jdbcType="DECIMAL" />
+    <result column="ITEM_ID" property="itemId" jdbcType="DECIMAL" />
+    <result column="ITEM_NAME" property="itemName" jdbcType="VARCHAR" />
+    <result column="ITEM_NO" property="itemNo" jdbcType="VARCHAR" />
+    <result column="SKU_ID" property="skuId" jdbcType="DECIMAL" />
+    <result column="SKU" property="sku" jdbcType="VARCHAR" />
+    <result column="SKU_IMG" property="skuImg" jdbcType="VARCHAR" />
+    <result column="SKU_NAME" property="skuName" jdbcType="VARCHAR" />
+    <result column="SKU_SPEC" property="skuSpec" jdbcType="VARCHAR" />
+    <result column="MARKET_PRICE" property="marketPrice" jdbcType="DECIMAL" />
+    <result column="SKU_DISCOUNT" property="skuDiscount" jdbcType="DECIMAL" />
+    <result column="SKU_PRICE" property="skuPrice" jdbcType="DECIMAL" />
+    <result column="COUNT" property="count" jdbcType="DECIMAL" />
+    <result column="SERIESCODE" property="seriescode" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ORDER_DETAIL_ID, ORDER_ID, ITEM_ID, ITEM_NAME, ITEM_NO, SKU_ID, SKU, SKU_IMG, SKU_NAME, 
+    SKU_SPEC, MARKET_PRICE, SKU_DISCOUNT, SKU_PRICE, COUNT, SERIESCODE
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from EB_ORDER_DETAIL
+    where ORDER_DETAIL_ID = #{orderDetailId,jdbcType=DECIMAL}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from EB_ORDER_DETAIL
+    where ORDER_DETAIL_ID = #{orderDetailId,jdbcType=DECIMAL}
+  </delete>
+  
+  <!--订单明细入库 -->
+  <insert id="insert" parameterType="com.yh.eshop.model.EbOrderDetail" >
+    insert into EB_ORDER_DETAIL (ORDER_DETAIL_ID, ORDER_ID, ITEM_ID, 
+      ITEM_NAME, ITEM_NO, SKU_ID, 
+      SKU, SKU_IMG, SKU_NAME, 
+      SKU_SPEC, MARKET_PRICE, SKU_DISCOUNT, 
+      SKU_PRICE, COUNT, SERIESCODE
+      )
+    values (seqorderdetailid.nextval, #{orderId,jdbcType=DECIMAL}, #{itemId,jdbcType=DECIMAL}, 
+      #{itemName,jdbcType=VARCHAR}, #{itemNo,jdbcType=VARCHAR}, #{skuId,jdbcType=DECIMAL}, 
+      #{sku,jdbcType=VARCHAR}, #{skuImg,jdbcType=VARCHAR}, #{skuName,jdbcType=VARCHAR}, 
+      #{skuSpec,jdbcType=VARCHAR}, #{marketPrice,jdbcType=DECIMAL}, #{skuDiscount,jdbcType=DECIMAL}, 
+      #{skuPrice,jdbcType=DECIMAL}, #{count,jdbcType=DECIMAL}, #{seriescode,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.yh.eshop.model.EbOrderDetail" >
+    insert into EB_ORDER_DETAIL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderDetailId != null" >
+        ORDER_DETAIL_ID,
+      </if>
+      <if test="orderId != null" >
+        ORDER_ID,
+      </if>
+      <if test="itemId != null" >
+        ITEM_ID,
+      </if>
+      <if test="itemName != null" >
+        ITEM_NAME,
+      </if>
+      <if test="itemNo != null" >
+        ITEM_NO,
+      </if>
+      <if test="skuId != null" >
+        SKU_ID,
+      </if>
+      <if test="sku != null" >
+        SKU,
+      </if>
+      <if test="skuImg != null" >
+        SKU_IMG,
+      </if>
+      <if test="skuName != null" >
+        SKU_NAME,
+      </if>
+      <if test="skuSpec != null" >
+        SKU_SPEC,
+      </if>
+      <if test="marketPrice != null" >
+        MARKET_PRICE,
+      </if>
+      <if test="skuDiscount != null" >
+        SKU_DISCOUNT,
+      </if>
+      <if test="skuPrice != null" >
+        SKU_PRICE,
+      </if>
+      <if test="count != null" >
+        COUNT,
+      </if>
+      <if test="seriescode != null" >
+        SERIESCODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderDetailId != null" >
+        #{orderDetailId,jdbcType=DECIMAL},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=DECIMAL},
+      </if>
+      <if test="itemId != null" >
+        #{itemId,jdbcType=DECIMAL},
+      </if>
+      <if test="itemName != null" >
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemNo != null" >
+        #{itemNo,jdbcType=VARCHAR},
+      </if>
+      <if test="skuId != null" >
+        #{skuId,jdbcType=DECIMAL},
+      </if>
+      <if test="sku != null" >
+        #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="skuImg != null" >
+        #{skuImg,jdbcType=VARCHAR},
+      </if>
+      <if test="skuName != null" >
+        #{skuName,jdbcType=VARCHAR},
+      </if>
+      <if test="skuSpec != null" >
+        #{skuSpec,jdbcType=VARCHAR},
+      </if>
+      <if test="marketPrice != null" >
+        #{marketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="skuDiscount != null" >
+        #{skuDiscount,jdbcType=DECIMAL},
+      </if>
+      <if test="skuPrice != null" >
+        #{skuPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="count != null" >
+        #{count,jdbcType=DECIMAL},
+      </if>
+      <if test="seriescode != null" >
+        #{seriescode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.yh.eshop.model.EbOrderDetail" >
+    update EB_ORDER_DETAIL
+    <set >
+      <if test="orderId != null" >
+        ORDER_ID = #{orderId,jdbcType=DECIMAL},
+      </if>
+      <if test="itemId != null" >
+        ITEM_ID = #{itemId,jdbcType=DECIMAL},
+      </if>
+      <if test="itemName != null" >
+        ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemNo != null" >
+        ITEM_NO = #{itemNo,jdbcType=VARCHAR},
+      </if>
+      <if test="skuId != null" >
+        SKU_ID = #{skuId,jdbcType=DECIMAL},
+      </if>
+      <if test="sku != null" >
+        SKU = #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="skuImg != null" >
+        SKU_IMG = #{skuImg,jdbcType=VARCHAR},
+      </if>
+      <if test="skuName != null" >
+        SKU_NAME = #{skuName,jdbcType=VARCHAR},
+      </if>
+      <if test="skuSpec != null" >
+        SKU_SPEC = #{skuSpec,jdbcType=VARCHAR},
+      </if>
+      <if test="marketPrice != null" >
+        MARKET_PRICE = #{marketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="skuDiscount != null" >
+        SKU_DISCOUNT = #{skuDiscount,jdbcType=DECIMAL},
+      </if>
+      <if test="skuPrice != null" >
+        SKU_PRICE = #{skuPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="count != null" >
+        COUNT = #{count,jdbcType=DECIMAL},
+      </if>
+      <if test="seriescode != null" >
+        SERIESCODE = #{seriescode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ORDER_DETAIL_ID = #{orderDetailId,jdbcType=DECIMAL}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.yh.eshop.model.EbOrderDetail" >
+    update EB_ORDER_DETAIL
+    set ORDER_ID = #{orderId,jdbcType=DECIMAL},
+      ITEM_ID = #{itemId,jdbcType=DECIMAL},
+      ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+      ITEM_NO = #{itemNo,jdbcType=VARCHAR},
+      SKU_ID = #{skuId,jdbcType=DECIMAL},
+      SKU = #{sku,jdbcType=VARCHAR},
+      SKU_IMG = #{skuImg,jdbcType=VARCHAR},
+      SKU_NAME = #{skuName,jdbcType=VARCHAR},
+      SKU_SPEC = #{skuSpec,jdbcType=VARCHAR},
+      MARKET_PRICE = #{marketPrice,jdbcType=DECIMAL},
+      SKU_DISCOUNT = #{skuDiscount,jdbcType=DECIMAL},
+      SKU_PRICE = #{skuPrice,jdbcType=DECIMAL},
+      COUNT = #{count,jdbcType=DECIMAL},
+      SERIESCODE = #{seriescode,jdbcType=VARCHAR}
+    where ORDER_DETAIL_ID = #{orderDetailId,jdbcType=DECIMAL}
+  </update>
+</mapper>

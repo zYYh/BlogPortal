@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC
+"-//mybatis.org//DTD MyBatis Generator Configuration 
+1.0//EN"
+"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd"
+>
+<generatorConfiguration>
+	<!-- 制定ORCL的驱动包的路径 千万别放中文路径下 -->
+	<classPathEntry location="E:\GitHub\BlogSYS\WebContent\WEB-INF\lib\mysql-connector-java-5.1.15-bin.jar" />
+	<!-- 配置数据源和生成的代码所存放的位置 -->
+	<context id="context1">
+		<!--驱动 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://119.28.106.126:3306/blog_sys" userId="blogsys"
+			password="blog!@#db" />
+		<!-- 所生成的实体类的位置默认资源包src -->
+		<javaModelGenerator targetPackage="com.yh.blog.Model" targetProject="BlogSYS" />
+		<!-- 所生成的sqlMap的映射文件的位置,默认资源包src -->
+		<sqlMapGenerator targetPackage="com.yh.blog.sqlMap" targetProject="BlogSYS" />
+		
+		<!-- 为哪些表生成代码 tableName:表名 schema:不用填写 -->
+		
+		<table schema="" tableName="user" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false"
+		>
+		</table>
+		<!-- <table schema="" tableName="BC_ROLE_PERMISSION" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false"
+		>
+		</table> -->
+		
+		
+		
+	</context>
+</generatorConfiguration>
