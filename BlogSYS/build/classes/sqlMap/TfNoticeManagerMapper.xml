@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "E:/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="TF_NOTICE_MANAGER" >
+  <resultMap id="BaseResultMap" type="com.yh.blog.Model.TfNoticeManager" >
+    <id column="NOTICE_ID" property="noticeId" jdbcType="DECIMAL" />
+    <result column="NOTICE_STATUS_NO" property="noticeStatusNo" jdbcType="VARCHAR" />
+    <result column="NOTICE_TITLE" property="noticeTitle" jdbcType="VARCHAR" />
+    <result column="NOTICE_MENO" property="noticeMeno" jdbcType="VARCHAR" />
+    <result column="VALID_TIME" property="validTime" jdbcType="DATE" />
+    <result column="INVALID_TIME" property="invalidTime" jdbcType="DATE" />
+    <result column="MENO" property="meno" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    NOTICE_ID, NOTICE_STATUS_NO, NOTICE_TITLE, NOTICE_MENO, VALID_TIME, INVALID_TIME, 
+    MENO
+  </sql>
+  
+  <!--Mybaties测试 -->
+  <select id="SelectTest" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+  	from TF_NOTICE_MANAGER 
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from TF_NOTICE_MANAGER
+    where NOTICE_ID = #{noticeId,jdbcType=DECIMAL}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from TF_NOTICE_MANAGER
+    where NOTICE_ID = #{noticeId,jdbcType=DECIMAL}
+  </delete>
+  
+  <insert id="insert" parameterType="com.yh.blog.Model.TfNoticeManager" >
+    insert into TF_NOTICE_MANAGER (NOTICE_ID, NOTICE_STATUS_NO, NOTICE_TITLE, 
+      NOTICE_MENO, VALID_TIME, INVALID_TIME, 
+      MENO)
+    values (#{noticeId,jdbcType=DECIMAL}, #{noticeStatusNo,jdbcType=VARCHAR}, #{noticeTitle,jdbcType=VARCHAR}, 
+      #{noticeMeno,jdbcType=VARCHAR}, #{validTime,jdbcType=DATE}, #{invalidTime,jdbcType=DATE}, 
+      #{meno,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.yh.blog.Model.TfNoticeManager" >
+    insert into TF_NOTICE_MANAGER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="noticeId != null" >
+        NOTICE_ID,
+      </if>
+      <if test="noticeStatusNo != null" >
+        NOTICE_STATUS_NO,
+      </if>
+      <if test="noticeTitle != null" >
+        NOTICE_TITLE,
+      </if>
+      <if test="noticeMeno != null" >
+        NOTICE_MENO,
+      </if>
+      <if test="validTime != null" >
+        VALID_TIME,
+      </if>
+      <if test="invalidTime != null" >
+        INVALID_TIME,
+      </if>
+      <if test="meno != null" >
+        MENO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="noticeId != null" >
+        #{noticeId,jdbcType=DECIMAL},
+      </if>
+      <if test="noticeStatusNo != null" >
+        #{noticeStatusNo,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTitle != null" >
+        #{noticeTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeMeno != null" >
+        #{noticeMeno,jdbcType=VARCHAR},
+      </if>
+      <if test="validTime != null" >
+        #{validTime,jdbcType=DATE},
+      </if>
+      <if test="invalidTime != null" >
+        #{invalidTime,jdbcType=DATE},
+      </if>
+      <if test="meno != null" >
+        #{meno,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.yh.blog.Model.TfNoticeManager" >
+    update TF_NOTICE_MANAGER
+    <set >
+      <if test="noticeStatusNo != null" >
+        NOTICE_STATUS_NO = #{noticeStatusNo,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTitle != null" >
+        NOTICE_TITLE = #{noticeTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeMeno != null" >
+        NOTICE_MENO = #{noticeMeno,jdbcType=VARCHAR},
+      </if>
+      <if test="validTime != null" >
+        VALID_TIME = #{validTime,jdbcType=DATE},
+      </if>
+      <if test="invalidTime != null" >
+        INVALID_TIME = #{invalidTime,jdbcType=DATE},
+      </if>
+      <if test="meno != null" >
+        MENO = #{meno,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where NOTICE_ID = #{noticeId,jdbcType=DECIMAL}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.yh.blog.Model.TfNoticeManager" >
+    update TF_NOTICE_MANAGER
+    set NOTICE_STATUS_NO = #{noticeStatusNo,jdbcType=VARCHAR},
+      NOTICE_TITLE = #{noticeTitle,jdbcType=VARCHAR},
+      NOTICE_MENO = #{noticeMeno,jdbcType=VARCHAR},
+      VALID_TIME = #{validTime,jdbcType=DATE},
+      INVALID_TIME = #{invalidTime,jdbcType=DATE},
+      MENO = #{meno,jdbcType=VARCHAR}
+    where NOTICE_ID = #{noticeId,jdbcType=DECIMAL}
+  </update>
+</mapper>
