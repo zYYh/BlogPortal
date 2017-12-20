@@ -38,7 +38,7 @@ public class PortalController {
 	 * @return
 	 */
 	@RequestMapping(value="/toIndex")
-	public String toIndex(Model model,String code){
+	public String toIndex(Model model,String code,HttpSession session){
 		/*List<User> user = service.mybatiesTest();
 		model.addAttribute("user",user);*/
 		try{
@@ -47,6 +47,7 @@ public class PortalController {
 			}else if(code.equals("2")){
 				model.addAttribute("name", "YHwin");
 			}
+			session.setAttribute("code", code);
 		}catch(Exception e){
 			logger.error("system error,usercode:"+code+e.getMessage());
 			return "404";

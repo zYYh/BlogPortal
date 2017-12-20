@@ -58,7 +58,7 @@
 	</head>
 
 <body class="single">
-		
+	<input type="hidden" id="userCode" value="${code}">		
 	<div class="fh5co-loader"></div>
 	
 	<div id="page">
@@ -113,7 +113,7 @@
 		<div class="fh5co-cover prev fh5co-cover-sm" style="background-image: url(${pageContext.request.contextPath}/images/project-4.jpg)">
 			<div class="overlay"></div>
 
-			<a class="copy" href="#">
+			<a class="copy" href="#" onclick="">
 				<div class="display-t">
 					<div class="display-tc">
 						<div>
