@@ -11,7 +11,7 @@
          http://www.springframework.org/schema/aop 
          http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
   		<!--配置事务管理和对工程中所有bean的管理 -->
-  		
+  	
   		<!--注解扫描器 -->
   		<context:component-scan base-package="com.yh.blog"></context:component-scan>
   		<!-- <import resource="classpath:activiti.cfg.xml"/> -->
